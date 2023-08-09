@@ -73,8 +73,9 @@ wwt.controllers.controller(
           }
 
           var collection = $scope.imagery[$.inArray($scope.lookAt, $scope.lookTypes)];
-          if (collection[0] !== '-')
-            collection.splice(0, 0, '-');
+          console.log(collection);
+          // if (collection[0] !== '-')
+          //   collection.splice(0, 0, '-');
 
           if (imageryName == '')
             imageryName = '-';
@@ -116,7 +117,7 @@ wwt.controllers.controller(
 
               $timeout(function () {
                 if (!lookAtFoundImagery) {
-                  $scope.backgroundImagery = collection[1];
+                  $scope.backgroundImagery = collection[0];
                   $scope.setSurveyBg();
                 }
               }, 123);
@@ -203,10 +204,13 @@ wwt.controllers.controller(
           var imageSets = wwtlib.WWTControl.imageSets;
 
           $scope.surveys = [];
+          console.log($scope);
 
           $.each(imageSets, function () {
             var typeIndex = this.get_dataSetType();
+            console.log(this);
             this.name = this.get_name() === 'Visible Imagery' ? 'Mars' : this.get_name();
+            console.log(this.get_name());
             if (typeIndex === 2 && this.name.toLowerCase().indexOf('hipparcos') !== -1) {//hipparcos is broken :(
               $scope.surveys.push(this);
             }
@@ -749,7 +753,7 @@ wwt.controllers.controller(
           $scope.activeItem.imageSet = item.get_studyImageset();
         }
       };
-      
+
       $scope.addCatalogHiPS = function (item) {
         if (item.guid) {
           $scope.shareUrl = hashManager.setHashVal('place', item.guid, true, true);
@@ -762,7 +766,7 @@ wwt.controllers.controller(
 
         //Catalog HiPS are controlled through the layer manager
         // & multiple items can be selected at the same time.
-        // So it does not make sense to highlight single items in the folder menu 
+        // So it does not make sense to highlight single items in the folder menu
         $scope.setActiveItem({});
         var imageSet = util.getImageset(item);
         wwtlib.WWTControl.singleton.addCatalogHips(imageSet);
