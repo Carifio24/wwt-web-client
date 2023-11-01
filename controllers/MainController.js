@@ -332,9 +332,7 @@ wwt.controllers.controller(
 
         if (obj['place']) {
           var openPlace = obj['place'];
-          if (!isNaN(parseInt(openPlace.charAt(0)))) {
-            loadPlace(openPlace)
-          }
+          loadPlace(openPlace)
         } else if (obj['ra'] !== undefined) {
           setTimeout(goto, 500);
         }
@@ -749,7 +747,7 @@ wwt.controllers.controller(
           $scope.activeItem.imageSet = item.get_studyImageset();
         }
       };
-      
+
       $scope.addCatalogHiPS = function (item) {
         if (item.guid) {
           $scope.shareUrl = hashManager.setHashVal('place', item.guid, true, true);
@@ -762,7 +760,7 @@ wwt.controllers.controller(
 
         //Catalog HiPS are controlled through the layer manager
         // & multiple items can be selected at the same time.
-        // So it does not make sense to highlight single items in the folder menu 
+        // So it does not make sense to highlight single items in the folder menu
         $scope.setActiveItem({});
         var imageSet = util.getImageset(item);
         wwtlib.WWTControl.singleton.addCatalogHips(imageSet);
