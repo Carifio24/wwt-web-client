@@ -776,14 +776,21 @@ wwt.controllers.controller(
         }
 
         var imageSet = util.getImageset(item);
+        var willGoto = !item.isSurvey && wwtlib.ss.canCast(item, wwtlib.Place);
         if (imageSet && !item.isEarth) {
           wwtlib.WWTControl.singleton.renderContext.set_foregroundImageset(imageSet);
+          if (!willGoto) {
+            $('.cross-fader a.btn').css('left', 100);
+          }
         }
         $scope.setTrackingObj(item);
 
-        if (!item.isSurvey && wwtlib.ss.canCast(item, wwtlib.Place)) {
+        if (willGoto) {
           $('.finder-scope').hide();
           //$('.cross-fader').parent().toggle(imageSet!=null);
+          wwt.wc.add_arrived(function() {
+            $('.cross-fader a.btn').css('left', 100);
+          });
           $rootScope.singleton.gotoTarget(item, false, !!$rootScope.instant, true);
         } else if (!item.isEarth) {
           ctl.setForegroundImageByName(imageSet.get_name());
