@@ -1,4 +1,4 @@
-﻿wwt.app.factory(
+wwt.app.factory(
   'Util',
   [
     '$rootScope',

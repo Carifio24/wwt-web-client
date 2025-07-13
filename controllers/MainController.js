@@ -251,19 +251,8 @@ wwt.controllers.controller(
           obj = hashManager.getHashObject();
         }
 
-        var goto = function () {
-          if (!obj) {
-            obj = hashManager.getHashObject();
-          }
-
-          ctl.gotoRaDecZoom(
-            parseFloat(obj['ra']) * 15,
-            parseFloat(obj['dec']),
-            parseFloat(obj['fov']),
-            false
-          );
-          obj = null;
-        }
+        var hasCameraParams = 'ra' in obj && 'dec' in obj && 'fov' in obj;
+        var shouldGoTo = hasCameraParams;
 
         var setLookAtHash = function (cb) {
           $timeout(function () {
@@ -353,6 +342,15 @@ wwt.controllers.controller(
         } catch (ex) {
           setTimeout(hashChange, 2000);
           console.log(ex);
+        }
+
+        if (hasCameraParams) {
+          ctl.gotoRaDecZoom(
+            parseFloat(obj["ra"]) * 15,
+            parseFloat(obj["dec"]),
+            parseFloat(obj["fov"]),
+            false
+          );
         }
       }
 
