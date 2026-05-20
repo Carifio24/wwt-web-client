@@ -23,27 +23,31 @@ wwt.controllers.controller(
         $('body.wwt-webclient-wrapper div.colorpicker-modal.wwt-modal div.modal-dialog')
           .css({marginTop:e.pageY, marginLeft:e.pageX});
 
-        opacity = cp.color.a / 255;
-        var left = Math.round(opacity*100);
-        var bar = $('.cross-fader.color-picker a.btn').css('left', left);
+        if ($scope.opacity) {
+          opacity = cp.color.a / 255;
+          var left = Math.round(opacity*100);
+          var bar = $('.cross-fader.color-picker a.btn').css('left', left);
 
-        var slider = new wwt.Move({
-          el: bar,
-          bounds: {
-            x: [0-left, 100-left],
-            y: [0, 0]
-          },
-          onstart: function () {
-            bar.addClass('moving');
-          },
-          onmove: function (args) {
-            opacity = this.css.left / 100;
-            $scope.setColor();
-          },
-          oncomplete: function () {
-            bar.removeClass('moving');
-          }
-        });
+          var slider = new wwt.Move({
+            el: bar,
+            bounds: {
+              x: [0-left, 100-left],
+              y: [0, 0]
+            },
+            onstart: function () {
+              bar.addClass('moving');
+            },
+            onmove: function (args) {
+              opacity = this.css.left / 100;
+              $scope.setColor();
+            },
+            oncomplete: function () {
+              bar.removeClass('moving');
+            }
+          });
+        } else {
+          $('.control.color-alpha').css('display', 'none');
+        }
 
         $scope.pickColor();
       }

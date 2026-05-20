@@ -1,4 +1,4 @@
-﻿wwt.app.factory('UILibrary', ['$rootScope', 'AppState', 'Util', 'Localization', '$modal', '$sce', function ($rootScope, appState, util, loc, $modal, $sce) {
+wwt.app.factory('UILibrary', ['$rootScope', 'AppState', 'Util', 'Localization', '$modal', '$sce', function ($rootScope, appState, util, loc, $modal, $sce) {
 
   $rootScope.layerManagerHidden = appState.get('layerManagerHidden') ? true : false;
 
@@ -139,10 +139,11 @@
     });
   };
 
-  var showColorpicker = function (colorpicker, e) {
+  var showColorpicker = function (colorpicker, e, opacity=true) {
     var modalScope = $rootScope.$new();
     modalScope.colorpicker = colorpicker;
     modalScope.mouse = e;
+    modalScope.opacity = opacity;
     modalScope.customClass = 'colorpicker-modal';
     $modal({
       scope: modalScope,
