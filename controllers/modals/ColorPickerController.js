@@ -82,7 +82,11 @@ wwt.controllers.controller(
         $scope.$hide();
       }
 
-      setTimeout($scope.init, 800);
+      if (window.requestAnimationFrame) {
+        requestAnimationFrame(function () { requestAnimationFrame(function () { $scope.init(); }); });
+      } else {
+        setTimeout($scope.init, 100);
+      }
     }
   ]
 );
